@@ -271,5 +271,11 @@ Trello.prototype.addStickerToCard = function(cardId, image, left, top, zIndex, r
     return makeRequest(rest.post, this.uri+'/1/cards/' + cardId + '/stickers', {query:query, data:data}, callback);
 };
 
+Trello.prototype.search = function(searchQuery, callback) {
+    var query = this.createQuery();
+    query.query = searchQuery;
+    return makeRequest(rest.get, this.uri+'/1/search', {query: query}, callback);
+};
+
 
 module.exports = Trello;
