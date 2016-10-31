@@ -804,4 +804,30 @@ describe('Trello', function () {
             restler.get.restore();
         });
     });
+
+  describe('getList', function() {
+        var query;
+        var get;
+
+        beforeEach(function (done) {
+                sinon.stub(restler, 'get', function (uri, options) {
+                return {once: function (event, callback) {
+                    callback(null, null);
+                }};
+            });
+
+            trello.getList('listID', function () {
+                get = restler.get;
+                done();
+            });
+        });
+
+        it('should get to https://api.trello.com/1/lists/listID', function () {
+            get.should.have.been.calledWith('https://api.trello.com/1/lists/listID');
+        });
+
+        afterEach(function () {
+            restler.get.restore();
+        });
+    });
 });
